@@ -1,0 +1,17 @@
+Contains shell scripts that ease the installation of the vehicle simulator Rigs of Rods and its dependencies. 
+They are designed for Debian/Ubuntu/Mint based systems, last tested on Ubuntu.
+
+Make them executable: chmod +x RoR*.sh
+Run from console in this order and not simultaneously:
+	sh RoRdeps.sh
+	sh RoRcore.sh
+	sh RoRcontent.sh
+    
+to update to a newer version run
+	sh RoRupdate.sh
+	
+I included a script for profiling. If you don't know what that means then it is not for you!
+
+Author: Hiradur
+Hg repository: https://sourceforge.net/u/hiradur/rorlinuxinstall/ref/default/
+Thread on RoR forums: http://www.rigsofrods.com/threads/114853-Install-scripts-for-latest-snapshot-for-Debian-Ubuntu-Mint

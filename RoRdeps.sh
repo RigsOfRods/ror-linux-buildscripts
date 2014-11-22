@@ -106,5 +106,5 @@ cd ..
 rm hydrax-0.5.2-ogre-17-patched.tar.bz2
 
 echo "$(tput setaf 1)NOTE: This script does not check for errors. Please scroll up and check if something went wrong."
-echo "INFO: To remove Caelum, MySocketW and Paged Geometry, see Wiki: http://www.rigsofrods.com/wiki/pages/Compiling_3rd_party_libraries(tput sgr 0)"
+echo "INFO: To remove Caelum, MySocketW and Paged Geometry, see Wiki: http://www.rigsofrods.com/wiki/pages/Compiling_3rd_party_libraries$(tput sgr 0)"
 

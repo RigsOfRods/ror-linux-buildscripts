@@ -97,8 +97,8 @@ wget http://modclub.rigsofrods.com/xavi/hydrax-0.5.2-ogre-17-patched.tar.bz2
 tar xvfj hydrax*
 cd hydrax-*
 ## Fix for errors running the make command: remove the # on the lines below up to the end
-#cp makefile makefile.orig
-#sed 's|PREFIX =/usr|PREFIX =/usr/local|g' makefile.orig > makefile
+cp makefile makefile.orig
+sed 's|PREFIX =/usr|PREFIX =/usr/local|g' makefile.orig > makefile
 ## end of fix
 make -j$cpucount
 sudo make install

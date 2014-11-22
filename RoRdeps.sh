@@ -1,6 +1,7 @@
 #!/bin/bash
 
 #Precompiled dependencies
+sudo apt-get update
 sudo apt-get install automake subversion cmake build-essential pkg-config doxygen mercurial \
  libfreetype6-dev libfreeimage-dev libzzip-dev scons libcurl4-openssl-dev \
  nvidia-cg-toolkit libgl1-mesa-dev libxrandr-dev libx11-dev libxt-dev libxaw7-dev \

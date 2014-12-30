@@ -2,7 +2,7 @@
 
 #Precompiled dependencies
 sudo apt-get update
-sudo apt-get install automake subversion cmake build-essential pkg-config doxygen mercurial \
+sudo apt-get install subversion mercurial git automake cmake build-essential pkg-config doxygen \
  libfreetype6-dev libfreeimage-dev libzzip-dev scons libcurl4-openssl-dev \
  nvidia-cg-toolkit libgl1-mesa-dev libxrandr-dev libx11-dev libxt-dev libxaw7-dev \
  libglu1-mesa-dev libxxf86vm-dev uuid-dev libuuid1 libgtk2.0-dev libboost-all-dev \
@@ -17,9 +17,8 @@ mkdir ~/.rigsofrods
 cd ~/ror-deps
 
 #OGRE
-wget http://sourceforge.net/projects/ogre/files/ogre/1.8/1.8.1/ogre_src_v1-8-1.tar.bz2/download -O ogre_src_v1-8-1.tar.bz2
-tar xjf ogre_src_v1-8-1.tar.bz2
-cd ogre_src_v1-8-1
+hg clone https://bitbucket.org/sinbad/ogre -b v1-8
+cd ogre
 cmake -DFREETYPE_INCLUDE_DIR=/usr/include/freetype2/ -DCMAKE_BUILD_TYPE:STRING=Release -DOGRE_BUILD_SAMPLES:BOOL=OFF .
 make -j$cpucount
 sudo make install
@@ -50,14 +49,14 @@ sudo make install
 cd ..
 
 #Paged Geometry
-hg clone http://hg.code.sf.net/u/hiradur/pgunofficial pgunofficial
-cd pgunofficial
+git clone https://github.com/Hiradur/ogre-paged.git
+cd ogre-paged
 cmake -DCMAKE_BUILD_TYPE:STRING=Release -DPAGEDGEOMETRY_BUILD_SAMPLES:BOOL=OFF .
 make -j$cpucount
 sudo make install
 cd ..
 
-#Caelum
+#Caelum (needs specific revision for OGRE-1.8)
 hg clone -r 3b0f1afccf5cb75c65d812d0361cce61b0e82e52 https://caelum.googlecode.com/hg/ caelum 
 cd caelum
 cmake .
@@ -68,16 +67,11 @@ cd ..
 sudo ln -s /usr/local/lib/libCaelum.so /usr/local/lib/OGRE/
 
 #MySocketW
-wget http://www.digitalfanatics.org/cal/socketw/files/SocketW031026.tar.gz -O SocketW031026.tar.gz
-tar xzf SocketW031026.tar.gz
-cd SocketW031026/
-wget http://wiki.rigsofrods.com/images/c/c0/Socketw.patch -O Socketw.patch #patch needed for newer compilers
-patch -p0 -d src < Socketw.patch
-rm Socketw.patch
+git clone https://github.com/Hiradur/mysocketw.git
+cd mysocketw
 make -j$cpucount shared
 sudo make install
 cd ..
-rm SocketW031026.tar.gz
 
 #Angelscript
 mkdir angelscript

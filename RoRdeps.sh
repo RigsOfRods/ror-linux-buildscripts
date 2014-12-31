@@ -19,31 +19,26 @@ cd ~/ror-deps
 #OGRE
 hg clone https://bitbucket.org/sinbad/ogre -b v1-8
 cd ogre
-cmake -DFREETYPE_INCLUDE_DIR=/usr/include/freetype2/ -DCMAKE_BUILD_TYPE:STRING=Release -DOGRE_BUILD_SAMPLES:BOOL=OFF .
+cmake -DFREETYPE_INCLUDE_DIR=/usr/include/freetype2/ \
+-DCMAKE_BUILD_TYPE:STRING=Release \
+-DOGRE_BUILD_SAMPLES:BOOL=OFF .
 make -j$cpucount
 sudo make install
 cd ..
-#not needed on 32bit
+#not needed on 32bit OS
 sudo ln -s /usr/lib/x86_64-linux-gnu/OGRE-1.8.0/ /usr/local/lib/
 sudo mv /usr/local/lib/OGRE-1.8.0 /usr/local/lib/OGRE
 
 #MyGUI
 svn co https://my-gui.svn.sourceforge.net/svnroot/my-gui/trunk my-gui -r 4344
 cd my-gui
-cmake -DFREETYPE_INCLUDE_DIR=/usr/include/freetype2/ -DCMAKE_BUILD_TYPE:STRING=Release -DMYGUI_BUILD_SAMPLES:BOOL=OFF -DMYGUI_INSTALL_SAMPLES:BOOL=OFF -DMYGUI_BUILD_TOOLS:BOOL=OFF -DMYGUI_BUILD_PLUGINS:BOOL=OFF .
-#tell ld to use libboost_system library
-cd Demos
-for link in `find . -name 'link.txt'` 
-do
-	eval "sed '1 s/$/ -lboost_system/' -i $link"
-done
-cd ..
-cd MyGUIEngine
-for link in `find . -name 'link.txt'` 
-do
-	eval "sed '1 s/$/ -lboost_system/' -i $link"
-done
-cd ..
+cmake -DFREETYPE_INCLUDE_DIR=/usr/include/freetype2/ \
+-DCMAKE_BUILD_TYPE:STRING=Release \
+-DMYGUI_BUILD_DEMOS:BOOL=OFF \
+-DMYGUI_BUILD_DOCS:BOOL=OFF \
+-DMYGUI_BUILD_TEST_APP:BOOL=OFF \
+-DMYGUI_BUILD_TOOLS:BOOL=OFF \
+-DMYGUI_BUILD_PLUGINS:BOOL=OFF .
 make -j$cpucount
 sudo make install
 cd ..
@@ -51,7 +46,8 @@ cd ..
 #Paged Geometry
 git clone https://github.com/Hiradur/ogre-paged.git
 cd ogre-paged
-cmake -DCMAKE_BUILD_TYPE:STRING=Release -DPAGEDGEOMETRY_BUILD_SAMPLES:BOOL=OFF .
+cmake -DCMAKE_BUILD_TYPE:STRING=Release \
+-DPAGEDGEOMETRY_BUILD_SAMPLES:BOOL=OFF .
 make -j$cpucount
 sudo make install
 cd ..
@@ -59,7 +55,7 @@ cd ..
 #Caelum (needs specific revision for OGRE-1.8)
 hg clone -r 3b0f1afccf5cb75c65d812d0361cce61b0e82e52 https://caelum.googlecode.com/hg/ caelum 
 cd caelum
-cmake .
+cmake -DCaelum_BUILD_SAMPLES:BOOL=OFF .
 make -j$cpucount
 sudo make install
 cd .. 

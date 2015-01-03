@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Note: The script only downloads the latest revision of git repos without history to reduce download size.
+# If you need the history (e.g. you are a developer) remove --depth=1 after git clone
+
 #Precompiled dependencies
 sudo apt-get update
 sudo apt-get install subversion mercurial git automake cmake build-essential pkg-config doxygen \
@@ -44,7 +47,7 @@ sudo make install
 cd ..
 
 #Paged Geometry
-git clone https://github.com/Hiradur/ogre-paged.git
+git clone --depth=1 https://github.com/Hiradur/ogre-paged.git
 cd ogre-paged
 cmake -DCMAKE_BUILD_TYPE:STRING=Release \
 -DPAGEDGEOMETRY_BUILD_SAMPLES:BOOL=OFF .
@@ -63,7 +66,7 @@ cd ..
 sudo ln -s /usr/local/lib/libCaelum.so /usr/local/lib/OGRE/
 
 #MySocketW
-git clone https://github.com/Hiradur/mysocketw.git
+git clone --depth=1 https://github.com/Hiradur/mysocketw.git
 cd mysocketw
 make -j$cpucount shared
 sudo make install
@@ -84,17 +87,11 @@ rm -f ../../lib/*
 cd ../../../../../
 
 #Hydrax
-wget http://modclub.rigsofrods.com/xavi/hydrax-0.5.2-ogre-17-patched.tar.bz2
-tar xvfj hydrax*
-cd hydrax-*
-## Fix for errors running the make command: remove the # on the lines below up to the end
-cp makefile makefile.orig
-sed 's|PREFIX =/usr|PREFIX =/usr/local|g' makefile.orig > makefile
-## end of fix
-make -j$cpucount
+git clone --depth=1 https://github.com/imperative/CommunityHydrax.git
+cd CommunityHydrax
+make -j2
 sudo make install
 cd ..
-rm hydrax-0.5.2-ogre-17-patched.tar.bz2
 
 echo "$(tput setaf 1)NOTE: This script does not check for errors. Please scroll up and check if something went wrong."
 echo "INFO: To remove Caelum, MySocketW and Paged Geometry, see Wiki: http://www.rigsofrods.com/wiki/pages/Compiling_3rd_party_libraries$(tput sgr 0)"

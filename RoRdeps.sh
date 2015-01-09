@@ -28,9 +28,6 @@ cmake -DFREETYPE_INCLUDE_DIR=/usr/include/freetype2/ \
 make -j$cpucount
 sudo make install
 cd ..
-#not needed on 32bit OS
-sudo ln -s /usr/lib/x86_64-linux-gnu/OGRE-1.8.0/ /usr/local/lib/
-sudo mv /usr/local/lib/OGRE-1.8.0 /usr/local/lib/OGRE
 
 #MyGUI
 svn co https://my-gui.svn.sourceforge.net/svnroot/my-gui/trunk my-gui -r 4344
@@ -89,8 +86,8 @@ cd ../../../../../
 #Hydrax
 git clone --depth=1 https://github.com/imperative/CommunityHydrax.git
 cd CommunityHydrax
-make -j2
-sudo make install
+make -j2 PREFIX=/usr/local
+sudo make install PREFIX=/usr/local
 cd ..
 
 echo "$(tput setaf 1)NOTE: This script does not check for errors. Please scroll up and check if something went wrong."

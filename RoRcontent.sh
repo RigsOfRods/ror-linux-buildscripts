@@ -1,5 +1,6 @@
 cd ~/
-mkdir .rigsofrods
+mkdir ~/.rigsofrods
+mkdir ~/.rigsofrods/packs
 
 while true; do
     read -p "Which Pack do you want to download? 
@@ -17,5 +18,6 @@ case $input in
 done
 
 echo "You can find more content at http://www.rigsofrods.com/repository/"
-echo "You can find some content only in the forum: http://www.rigsofrods.com/forums/103-Showrooms-and-WIP"
+echo "Some content may only be found in the forum: http://www.rigsofrods.com/forums/103-Showrooms-and-WIP"
 echo "Also check out this list of additional content of high quality: http://www.rigsofrods.com/wiki/pages/High_Quality_Content_not_included_in_the_HQ_Pack"
+echo "You may want to delete the downloaded .zips"

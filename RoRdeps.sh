@@ -86,7 +86,7 @@ cd ../../../../../
 #Hydrax
 git clone --depth=1 https://github.com/imperative/CommunityHydrax.git
 cd CommunityHydrax
-make -j2 PREFIX=/usr/local
+make -j$cpucount PREFIX=/usr/local
 sudo make install PREFIX=/usr/local
 cd ..
 

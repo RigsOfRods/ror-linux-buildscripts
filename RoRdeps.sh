@@ -30,7 +30,7 @@ sudo make install
 cd ..
 
 #MyGUI
-svn co https://svn.code.sf.net/p/my-gui/code/trunk/ -r 4344
+svn co https://svn.code.sf.net/p/my-gui/code/trunk my-gui -r 4344
 cd my-gui
 cmake -DFREETYPE_INCLUDE_DIR=/usr/include/freetype2/ \
 -DCMAKE_BUILD_TYPE:STRING=Release \

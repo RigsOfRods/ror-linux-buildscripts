@@ -12,6 +12,15 @@ to update to a newer version run
 	
 I included a script for profiling. If you don't know what that means then it is not for you!
 
+
+Note: If for whatever reason you copy parts of the script into the console make sure that for "make -j$cpucount" either
+1. $cpucount has the correct value ( e.g. set by "cpucount=$(grep -c processor /proc/cpuinfo)" )
+or
+2. replace $cpucount with a number ( e.g. "make -j4" )
+
+If $cpucount is not set correctly it will probably bring your system to a halt.
+
+
 Author: Hiradur
 Git repository: https://github.com/Hiradur/rigsofrods-linuxscripts
 Thread on RoR forums: http://www.rigsofrods.com/threads/114853-Install-scripts-for-latest-snapshot-for-Debian-Ubuntu-Mint

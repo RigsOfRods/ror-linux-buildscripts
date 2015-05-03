@@ -83,12 +83,12 @@ sudo SHARED=1 VERSION=2.22.1 make install
 rm -f ../../lib/*
 cd ../../../../../
 
-#Hydrax
-git clone --depth=1 https://github.com/imperative/CommunityHydrax.git
-cd CommunityHydrax
-make -j$cpucount PREFIX=/usr/local
-sudo make install PREFIX=/usr/local
-cd ..
+#Hydrax (included in RoR's source tree)
+#git clone --depth=1 https://github.com/imperative/CommunityHydrax.git
+#cd CommunityHydrax
+#make -j$cpucount PREFIX=/usr/local
+#sudo make install PREFIX=/usr/local
+#cd ..
 
 echo "$(tput setaf 1)NOTE: This script does not check for errors. Please scroll up and check if something went wrong."
 echo "INFO: To remove Caelum, MySocketW and Paged Geometry, see Wiki: http://www.rigsofrods.com/wiki/pages/Compiling_3rd_party_libraries$(tput sgr 0)"

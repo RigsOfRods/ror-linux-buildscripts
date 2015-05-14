@@ -1,15 +1,15 @@
 #!/bin/bash
 
 # Note: The script only downloads the latest revision of git repos without history to reduce download size.
-# If you need the history (e.g. you are a developer) remove --depth=1 after git clone
+# If you need the commit history (e.g. you are a developer) remove --depth=1 after git clone
 
 #Precompiled dependencies
 sudo apt-get update
-sudo apt-get install subversion git automake cmake build-essential pkg-config doxygen \
- libfreetype6-dev libfreeimage-dev libzzip-dev scons libcurl4-openssl-dev \
- nvidia-cg-toolkit libgl1-mesa-dev libxrandr-dev libx11-dev libxt-dev libxaw7-dev \
- libglu1-mesa-dev libxxf86vm-dev uuid-dev libuuid1 libgtk2.0-dev libboost-all-dev \
- libopenal-dev libois-dev libssl-dev libwxgtk3.0-dev
+sudo apt-get -q build-essential git cmake pkg-config libboost-all-dev \
+libfreetype6-dev libfreeimage-dev libzzip-dev libois-dev \
+libgl1-mesa-dev libglu1-mesa-dev nvidia-cg-toolkit libopenal-dev  \
+libx11-dev libxt-dev libxaw7-dev libxrandr-dev \
+libssl-dev libcurl4-openssl-dev libgtk2.0-dev libwxgtk3.0-dev
 
 #Initialization
 cpucount=$(grep -c processor /proc/cpuinfo)
@@ -27,13 +27,15 @@ cd sinbad-ogre-*
 cmake -DFREETYPE_INCLUDE_DIR=/usr/include/freetype2/ \
 -DCMAKE_BUILD_TYPE:STRING=Release \
 -DOGRE_BUILD_SAMPLES:BOOL=OFF .
-make -j$cpucount
+make -s -j$cpucount
 sudo make install
 cd ..
 
-#MyGUI
-svn co https://svn.code.sf.net/p/my-gui/code/trunk my-gui -r 4344
-cd my-gui
+#MyGUI (needs specific revision)
+wget -O mygui.zip https://github.com/MyGUI/mygui/archive/a790944c344c686805d074d7fc1d7fc13df98c37.zip
+unzip mygui.zip
+rm mygui.zip
+cd mygui-*
 cmake -DFREETYPE_INCLUDE_DIR=/usr/include/freetype2/ \
 -DCMAKE_BUILD_TYPE:STRING=Release \
 -DMYGUI_BUILD_DEMOS:BOOL=OFF \
@@ -41,7 +43,7 @@ cmake -DFREETYPE_INCLUDE_DIR=/usr/include/freetype2/ \
 -DMYGUI_BUILD_TEST_APP:BOOL=OFF \
 -DMYGUI_BUILD_TOOLS:BOOL=OFF \
 -DMYGUI_BUILD_PLUGINS:BOOL=OFF .
-make -j$cpucount
+make -s -j$cpucount
 sudo make install
 cd ..
 
@@ -50,7 +52,7 @@ git clone --depth=1 https://github.com/Hiradur/ogre-paged.git
 cd ogre-paged
 cmake -DCMAKE_BUILD_TYPE:STRING=Release \
 -DPAGEDGEOMETRY_BUILD_SAMPLES:BOOL=OFF .
-make -j$cpucount
+make -s -j$cpucount
 sudo make install
 cd ..
 
@@ -60,17 +62,16 @@ unzip caelum.zip
 rm caelum.zip
 cd caelum-*
 cmake -DCaelum_BUILD_SAMPLES:BOOL=OFF .
-make -j2
+make -s -j$cpucount
 sudo make install
 cd .. 
 # important step, so the plugin can load:
 sudo ln -s /usr/local/lib/libCaelum.so /usr/local/lib/OGRE/
 
-
 #MySocketW
 git clone --depth=1 https://github.com/Hiradur/mysocketw.git
 cd mysocketw
-make -j$cpucount shared
+make -s -j$cpucount shared
 sudo make install
 cd ..
 
@@ -83,7 +84,7 @@ cd sdk/angelscript/projects/gnuc
 SHARED=1 VERSION=2.22.1 make -j$cpucount --silent 
 # sudo make install fails when making the symbolic link, this removes the existing versions
 rm -f ../../lib/*
-sudo SHARED=1 VERSION=2.22.1 make install 
+sudo SHARED=1 VERSION=2.22.1 make -s install 
 #cleanup files made by root
 rm -f ../../lib/*
 cd ../../../../../
@@ -91,7 +92,7 @@ cd ../../../../../
 #Hydrax (included in RoR's source tree)
 #git clone --depth=1 https://github.com/imperative/CommunityHydrax.git
 #cd CommunityHydrax
-#make -j$cpucount PREFIX=/usr/local
+#make -s -j$cpucount PREFIX=/usr/local
 #sudo make install PREFIX=/usr/local
 #cd ..
 

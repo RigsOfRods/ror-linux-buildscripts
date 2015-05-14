@@ -5,7 +5,7 @@
 
 #Precompiled dependencies
 sudo apt-get update
-sudo apt-get install subversion mercurial git automake cmake build-essential pkg-config doxygen \
+sudo apt-get install subversion git automake cmake build-essential pkg-config doxygen \
  libfreetype6-dev libfreeimage-dev libzzip-dev scons libcurl4-openssl-dev \
  nvidia-cg-toolkit libgl1-mesa-dev libxrandr-dev libx11-dev libxt-dev libxaw7-dev \
  libglu1-mesa-dev libxxf86vm-dev uuid-dev libuuid1 libgtk2.0-dev libboost-all-dev \
@@ -20,8 +20,10 @@ mkdir ~/.rigsofrods
 cd ~/ror-deps
 
 #OGRE
-hg clone https://bitbucket.org/sinbad/ogre -b v1-8
-cd ogre
+wget -O ogre.zip http://bitbucket.org/sinbad/ogre/get/v1-8.zip
+unzip ogre.zip
+rm ogre.zip
+cd sinbad-ogre-*
 cmake -DFREETYPE_INCLUDE_DIR=/usr/include/freetype2/ \
 -DCMAKE_BUILD_TYPE:STRING=Release \
 -DOGRE_BUILD_SAMPLES:BOOL=OFF .
@@ -53,14 +55,17 @@ sudo make install
 cd ..
 
 #Caelum (needs specific revision for OGRE-1.8)
-hg clone -r 3b0f1afccf5cb75c65d812d0361cce61b0e82e52 https://caelum.googlecode.com/hg/ caelum 
-cd caelum
+wget -O caelum.zip http://caelum.googlecode.com/archive/3b0f1afccf5cb75c65d812d0361cce61b0e82e52.zip
+unzip caelum.zip
+rm caelum.zip
+cd caelum-*
 cmake -DCaelum_BUILD_SAMPLES:BOOL=OFF .
-make -j$cpucount
+make -j2
 sudo make install
 cd .. 
 # important step, so the plugin can load:
 sudo ln -s /usr/local/lib/libCaelum.so /usr/local/lib/OGRE/
+
 
 #MySocketW
 git clone --depth=1 https://github.com/Hiradur/mysocketw.git
@@ -92,4 +97,3 @@ cd ../../../../../
 
 echo "$(tput setaf 1)NOTE: This script does not check for errors. Please scroll up and check if something went wrong."
 echo "INFO: To remove Caelum, MySocketW and Paged Geometry, see Wiki: http://www.rigsofrods.com/wiki/pages/Compiling_3rd_party_libraries$(tput sgr 0)"
-

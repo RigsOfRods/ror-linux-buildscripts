@@ -1,0 +1,3 @@
+ROR_SOURCE_DIR=~/rigs-of-rods/source
+ROR_INSTALL_DIR=~/rigs-of-rods/install
+ROR_MAKEOPTS="-s -j$(grep -c processor /proc/cpuinfo)"

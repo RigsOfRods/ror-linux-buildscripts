@@ -3,12 +3,13 @@ They are designed for Debian/Ubuntu/Mint based systems, last tested on Ubuntu.
 
 Make them executable: chmod +x RoR*.sh
 Run from console in this order and not simultaneously:
+	sh RoRdepsapt.sh
 	sh RoRdeps.sh
 	sh RoRcore.sh
 	sh RoRcontent.sh
     
-to update to a newer version run
-	sh RoRupdate.sh
+to update to a newer version re-run
+	sh RoRcore.sh
 	
 I included a script for profiling. If you don't know what that means then it is not for you!
 

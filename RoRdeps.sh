@@ -24,6 +24,17 @@ make install
 
 PKG_CONFIG_PATH="$ROR_INSTALL_DIR/lib/pkgconfig"
 
+#OpenAL
+cd "$ROR_SOURCE_DIR"
+if [ ! -e openal-soft ]; then
+  git clone http://repo.or.cz/openal-soft.git
+fi
+cd openal-soft
+git pull
+cmake -DCMAKE_INSTALL_PREFIX="$ROR_INSTALL_DIR" .
+make $ROR_MAKEOPTS
+make install
+
 #MyGUI (needs specific revision)
 cd "$ROR_SOURCE_DIR"
 wget -c -O mygui.zip https://github.com/MyGUI/mygui/archive/a790944c344c686805d074d7fc1d7fc13df98c37.zip

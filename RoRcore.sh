@@ -33,7 +33,8 @@ cmake -DCMAKE_INSTALL_PREFIX="$ROR_INSTALL_DIR" \
 #flag for debugging: -DCMAKE_BUILD_TYPE=DEBUG (useful for profiling)
 
 make $ROR_MAKEOPTS
-sed -i 's/^PluginFolder=.*$/PluginFolder=..\/lib\/OGRE/' bin/plugins.cfg
+sed -i '/^PluginFolder=/d' bin/plugins.cfg
+echo "PluginFolder=$ROR_INSTALL_DIR/lib/OGRE" >>bin/plugins.cfg
 cp -R bin "$ROR_INSTALL_DIR"
 
 echo "$(tput setaf 1)NOTE: Do not forget to run RoRConfig once before RoR."

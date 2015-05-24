@@ -35,6 +35,8 @@ cmake -DCMAKE_INSTALL_PREFIX="$ROR_INSTALL_DIR" \
 make $ROR_MAKEOPTS
 sed -i '/^PluginFolder=/d' bin/plugins.cfg
 echo "PluginFolder=$ROR_INSTALL_DIR/lib/OGRE" >>bin/plugins.cfg
+
+#there's no make install target, so just copy the bin folder
 cp -R bin "$ROR_INSTALL_DIR"
 
 echo "$(tput setaf 1)NOTE: Do not forget to run RoRConfig once before RoR."

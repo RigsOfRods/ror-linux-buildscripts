@@ -10,7 +10,15 @@ Run from console in this order and not simultaneously:
 to update to a newer version re-run
 	sh RoRcore.sh
 	
+To change default directories and make options edit the "config" file.
+
 I included a script for profiling. If you don't know what that means then it is not for you!
+
+
+Note: If for whatever reason you copy parts of the script into the console make sure to set configuration
+variables appropriately, either manually, or by sourcing the "config" file:
+
+. ./config
 
 
 Author: Hiradur

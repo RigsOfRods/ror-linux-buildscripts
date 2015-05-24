@@ -27,7 +27,7 @@ PKG_CONFIG_PATH="$ROR_INSTALL_DIR/lib/pkgconfig"
 #OpenAL
 cd "$ROR_SOURCE_DIR"
 if [ ! -e openal-soft ]; then
-  git clone http://repo.or.cz/openal-soft.git
+  git clone --depth=1 http://repo.or.cz/openal-soft.git
 fi
 cd openal-soft
 git pull

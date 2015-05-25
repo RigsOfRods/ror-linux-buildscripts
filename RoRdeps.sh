@@ -1,93 +1,106 @@
-#!/bin/bash
+#!/bin/sh
+set -eu
+. ./config
 
 # Note: The script only downloads the latest revision of git repos without history to reduce download size.
 # If you need the commit history (e.g. you are a developer) remove --depth=1 after git clone
 
-#Precompiled dependencies
-sudo apt-get update
-sudo apt-get -q build-essential git cmake pkg-config libboost-all-dev \
-libfreetype6-dev libfreeimage-dev libzzip-dev libois-dev \
-libgl1-mesa-dev libglu1-mesa-dev nvidia-cg-toolkit libopenal-dev  \
-libx11-dev libxt-dev libxaw7-dev libxrandr-dev \
-libssl-dev libcurl4-openssl-dev libgtk2.0-dev libwxgtk3.0-dev
-
 #Initialization
-cpucount=$(grep -c processor /proc/cpuinfo)
-
-cd ~/
-mkdir ~/ror-deps
-mkdir ~/.rigsofrods 
-cd ~/ror-deps
+if [ ! -e "$ROR_SOURCE_DIR" ]; then
+  mkdir -p "$ROR_SOURCE_DIR"
+fi
 
 #OGRE
-wget -O ogre.zip http://bitbucket.org/sinbad/ogre/get/v1-8.zip
-unzip ogre.zip
-rm ogre.zip
+cd "$ROR_SOURCE_DIR"
+wget -c -O ogre.zip http://bitbucket.org/sinbad/ogre/get/v1-8.zip
+unzip -o ogre.zip
 cd sinbad-ogre-*
-cmake -DFREETYPE_INCLUDE_DIR=/usr/include/freetype2/ \
+cmake -DCMAKE_INSTALL_PREFIX="$ROR_INSTALL_DIR" \
+-DFREETYPE_INCLUDE_DIR=/usr/include/freetype2/ \
 -DCMAKE_BUILD_TYPE:STRING=Release \
 -DOGRE_BUILD_SAMPLES:BOOL=OFF .
-make -s -j$cpucount
-sudo make install
-cd ..
+make $ROR_MAKEOPTS
+make install
+
+PKG_CONFIG_PATH="$ROR_INSTALL_DIR/lib/pkgconfig"
+export PKG_CONFIG_PATH
+
+#OpenAL
+cd "$ROR_SOURCE_DIR"
+wget -c http://kcat.strangesoft.net/openal-releases/openal-soft-1.16.0.tar.bz2
+tar -xvjf openal-soft-1.16.0.tar.bz2
+cd openal-soft-1.16.0
+cmake -DCMAKE_INSTALL_PREFIX="$ROR_INSTALL_DIR" .
+make $ROR_MAKEOPTS
+make install
 
 #MyGUI (needs specific revision)
-wget -O mygui.zip https://github.com/MyGUI/mygui/archive/a790944c344c686805d074d7fc1d7fc13df98c37.zip
-unzip mygui.zip
-rm mygui.zip
+cd "$ROR_SOURCE_DIR"
+wget -c -O mygui.zip https://github.com/MyGUI/mygui/archive/a790944c344c686805d074d7fc1d7fc13df98c37.zip
+unzip -o mygui.zip
 cd mygui-*
-cmake -DFREETYPE_INCLUDE_DIR=/usr/include/freetype2/ \
+cmake -DCMAKE_INSTALL_PREFIX="$ROR_INSTALL_DIR" \
+-DFREETYPE_INCLUDE_DIR=/usr/include/freetype2/ \
 -DCMAKE_BUILD_TYPE:STRING=Release \
 -DMYGUI_BUILD_DEMOS:BOOL=OFF \
 -DMYGUI_BUILD_DOCS:BOOL=OFF \
 -DMYGUI_BUILD_TEST_APP:BOOL=OFF \
 -DMYGUI_BUILD_TOOLS:BOOL=OFF \
 -DMYGUI_BUILD_PLUGINS:BOOL=OFF .
-make -s -j$cpucount
-sudo make install
-cd ..
+make $ROR_MAKEOPTS
+make install
 
 #Paged Geometry
-git clone --depth=1 https://github.com/Hiradur/ogre-paged.git
+cd "$ROR_SOURCE_DIR"
+if [ ! -e ogre-paged ]; then
+  git clone --depth=1 https://github.com/Hiradur/ogre-paged.git
+fi
 cd ogre-paged
-cmake -DCMAKE_BUILD_TYPE:STRING=Release \
+git pull
+cmake -DCMAKE_INSTALL_PREFIX="$ROR_INSTALL_DIR" \
+-DCMAKE_BUILD_TYPE:STRING=Release \
 -DPAGEDGEOMETRY_BUILD_SAMPLES:BOOL=OFF .
-make -s -j$cpucount
-sudo make install
-cd ..
+make $ROR_MAKEOPTS
+make install
 
 #Caelum (needs specific revision for OGRE-1.8)
-wget -O caelum.zip http://caelum.googlecode.com/archive/3b0f1afccf5cb75c65d812d0361cce61b0e82e52.zip
-unzip caelum.zip
-rm caelum.zip
+cd "$ROR_SOURCE_DIR"
+wget -c -O caelum.zip http://caelum.googlecode.com/archive/3b0f1afccf5cb75c65d812d0361cce61b0e82e52.zip
+unzip -o caelum.zip
 cd caelum-*
-cmake -DCaelum_BUILD_SAMPLES:BOOL=OFF .
-make -s -j$cpucount
-sudo make install
-cd .. 
+cmake -DCMAKE_INSTALL_PREFIX="$ROR_INSTALL_DIR" \
+-DCaelum_BUILD_SAMPLES:BOOL=OFF .
+make $ROR_MAKEOPTS
+make install
 # important step, so the plugin can load:
-sudo ln -s /usr/local/lib/libCaelum.so /usr/local/lib/OGRE/
+ln -sf "$ROR_INSTALL_DIR/lib/libCaelum.so" "$ROR_INSTALL_DIR/lib/OGRE/"
 
 #MySocketW
-git clone --depth=1 https://github.com/Hiradur/mysocketw.git
+cd "$ROR_SOURCE_DIR"
+if [ ! -e mysocketw ]; then
+  git clone --depth=1 https://github.com/Hiradur/mysocketw.git
+fi
 cd mysocketw
-make -s -j$cpucount shared
-sudo make install
-cd ..
+git pull
+sed -i '/^PREFIX *=/d' Makefile.conf
+make $ROR_MAKEOPTS shared
+PREFIX="$ROR_INSTALL_DIR" make install
 
 #Angelscript
-mkdir angelscript
+cd "$ROR_SOURCE_DIR"
+if [ ! -e angelscript ]; then
+  mkdir angelscript
+fi
 cd angelscript
-wget http://www.angelcode.com/angelscript/sdk/files/angelscript_2.22.1.zip
-unzip angelscript_*.zip
+wget -c http://www.angelcode.com/angelscript/sdk/files/angelscript_2.22.1.zip
+unzip -o angelscript_*.zip
 cd sdk/angelscript/projects/gnuc
-SHARED=1 VERSION=2.22.1 make -j$cpucount --silent 
-# sudo make install fails when making the symbolic link, this removes the existing versions
+sed -i '/^LOCAL *=/d' makefile
+# make fails when making the symbolic link, this removes the existing versions
 rm -f ../../lib/*
-sudo SHARED=1 VERSION=2.22.1 make -s install 
-#cleanup files made by root
+SHARED=1 VERSION=2.22.1 make $ROR_MAKEOPTS
 rm -f ../../lib/*
-cd ../../../../../
+SHARED=1 VERSION=2.22.1 LOCAL="$ROR_INSTALL_DIR" make -s install
 
 #Hydrax (included in RoR's source tree)
 #git clone --depth=1 https://github.com/imperative/CommunityHydrax.git
@@ -95,6 +108,3 @@ cd ../../../../../
 #make -s -j$cpucount PREFIX=/usr/local
 #sudo make install PREFIX=/usr/local
 #cd ..
-
-echo "$(tput setaf 1)NOTE: This script does not check for errors. Please scroll up and check if something went wrong."
-echo "INFO: To remove Caelum, MySocketW and Paged Geometry, see Wiki: http://www.rigsofrods.com/wiki/pages/Compiling_3rd_party_libraries$(tput sgr 0)"

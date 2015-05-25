@@ -1,24 +1,24 @@
 Contains shell scripts that ease the installation of the vehicle simulator Rigs of Rods and its dependencies. 
 They are designed for Debian/Ubuntu/Mint based systems, last tested on Ubuntu.
 
-Make them executable: chmod +x RoR*.sh
 Run from console in this order and not simultaneously:
+	sh RoRdepsapt.sh
 	sh RoRdeps.sh
 	sh RoRcore.sh
 	sh RoRcontent.sh
     
-to update to a newer version run
-	sh RoRupdate.sh
+to update to a newer version re-run
+	sh RoRcore.sh
 	
+To change default directories and make options edit the "config" file.
+
 I included a script for profiling. If you don't know what that means then it is not for you!
 
 
-Note: If for whatever reason you copy parts of the script into the console make sure that for "make -j$cpucount" either
-1. $cpucount has the correct value ( e.g. set by "cpucount=$(grep -c processor /proc/cpuinfo)" )
-or
-2. replace $cpucount with a number ( e.g. "make -j4" )
+Note: If for whatever reason you copy parts of the script into the console make sure to set configuration
+variables appropriately, either manually, or by sourcing the "config" file:
 
-If $cpucount is not set correctly it will probably bring your system to a halt.
+. ./config
 
 
 Author: Hiradur

@@ -1,8 +1,19 @@
-cd ~/
-git clone https://github.com/RigsOfRods/rigs-of-rods.git
-cd ~/rigs-of-rods
+#!/bin/sh
+set -eu
+. ./config
 
-cmake -DROR_USE_MYGUI="TRUE" \
+cd "$ROR_SOURCE_DIR"
+if [ ! -e rigs-of-rods ]; then
+  git clone https://github.com/RigsOfRods/rigs-of-rods.git
+fi
+cd rigs-of-rods
+git pull
+
+PKG_CONFIG_PATH="$ROR_INSTALL_DIR/lib/pkgconfig"
+export PKG_CONFIG_PATH
+
+cmake -DCMAKE_INSTALL_PREFIX="$ROR_INSTALL_DIR" \
+-DROR_USE_MYGUI="TRUE" \
 -DROR_USE_OPENAL="TRUE" \
 -DROR_USE_SOCKETW="TRUE" \
 -DROR_USE_PAGED="TRUE" \
@@ -22,10 +33,14 @@ cmake -DROR_USE_MYGUI="TRUE" \
 
 #flag for debugging: -DCMAKE_BUILD_TYPE=DEBUG (useful for profiling)
 
-make -j$(grep -c processor /proc/cpuinfo)
+make $ROR_MAKEOPTS
+sed -i '/^PluginFolder=/d' bin/plugins.cfg
+echo "PluginFolder=$ROR_INSTALL_DIR/lib/OGRE" >>bin/plugins.cfg
 
-echo "$(tput setaf 1)NOTE: This script does not check for errors, please scroll up and check if something went wrong."
-echo "NOTE: Do not forget to run RoRConfig once before RoR."
-echo "NOTE: Binaries are in ~/rigs-of-rods/bin$(tput sgr 0)"
+#there's no make install target, so just copy the bin folder
+cp -R bin "$ROR_INSTALL_DIR"
+
+echo "$(tput setaf 1)NOTE: Do not forget to run RoRConfig once before RoR."
+echo "NOTE: Binaries are in $ROR_INSTALL_DIR/bin$(tput sgr 0)"
 
 

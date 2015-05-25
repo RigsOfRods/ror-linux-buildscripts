@@ -27,11 +27,9 @@ export PKG_CONFIG_PATH
 
 #OpenAL
 cd "$ROR_SOURCE_DIR"
-if [ ! -e openal-soft ]; then
-  git clone --depth=1 http://repo.or.cz/openal-soft.git
-fi
-cd openal-soft
-git pull
+wget -c http://kcat.strangesoft.net/openal-releases/openal-soft-1.16.0.tar.bz2
+tar -xvjf openal-soft-1.16.0.tar.bz2
+cd openal-soft-1.16.0
 cmake -DCMAKE_INSTALL_PREFIX="$ROR_INSTALL_DIR" .
 make $ROR_MAKEOPTS
 make install

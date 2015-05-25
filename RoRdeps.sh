@@ -23,6 +23,7 @@ make $ROR_MAKEOPTS
 make install
 
 PKG_CONFIG_PATH="$ROR_INSTALL_DIR/lib/pkgconfig"
+export PKG_CONFIG_PATH
 
 #OpenAL
 cd "$ROR_SOURCE_DIR"

@@ -8,3 +8,7 @@ ROR_INSTALL_DIR=~/rigs-of-rods/install
 # -s  -- Silent operation; do not print the commands as they are executed.
 # -jX -- Number of jobs to run simultaneously. X is the number of processors in /proc/cpuinfo by default.
 ROR_MAKEOPTS="-s -j$(grep -c processor /proc/cpuinfo)"
+
+# Don't change these
+PKG_CONFIG_PATH="$ROR_INSTALL_DIR/lib/pkgconfig"
+export PKG_CONFIG_PATH

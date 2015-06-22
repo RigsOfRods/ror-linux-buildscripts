@@ -22,9 +22,6 @@ cmake -DCMAKE_INSTALL_PREFIX="$ROR_INSTALL_DIR" \
 make $ROR_MAKEOPTS
 make install
 
-PKG_CONFIG_PATH="$ROR_INSTALL_DIR/lib/pkgconfig"
-export PKG_CONFIG_PATH
-
 #OpenAL
 cd "$ROR_SOURCE_DIR"
 wget -c http://kcat.strangesoft.net/openal-releases/openal-soft-1.16.0.tar.bz2

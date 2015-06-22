@@ -9,9 +9,6 @@ fi
 cd rigs-of-rods
 git pull
 
-PKG_CONFIG_PATH="$ROR_INSTALL_DIR/lib/pkgconfig"
-export PKG_CONFIG_PATH
-
 cmake \
 -DCMAKE_INSTALL_PREFIX="$ROR_INSTALL_DIR" \
 -DROR_USE_MYGUI="TRUE" \

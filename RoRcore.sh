@@ -7,6 +7,7 @@ if [ ! -e rigs-of-rods ]; then
   git clone https://github.com/RigsOfRods/rigs-of-rods.git
 fi
 cd rigs-of-rods
+git checkout Ogre-2.0
 git pull
 
 cmake \
@@ -14,10 +15,7 @@ cmake \
 -DROR_USE_MYGUI="TRUE" \
 -DROR_USE_OPENAL="TRUE" \
 -DROR_USE_SOCKETW="TRUE" \
--DROR_USE_PAGED="TRUE" \
--DROR_USE_CAELUM="TRUE" \
--DROR_USE_ANGELSCRIPT="TRUE" \
--DCMAKE_BUILD_TYPE=RELEASE \
+-DCMAKE_BUILD_TYPE=RelWithDebInfo \
 -DCMAKE_CXX_FLAGS="-pipe -march=native" \
 .
 

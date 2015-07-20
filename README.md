@@ -9,14 +9,17 @@ sh RoRdeps.sh
 sh RoRcore.sh
 sh RoRcontent.sh
 ```
-
+  
 ##### Notes:
-* To change default directories and make options edit the "config" file (optional)
-* RoRdepsapt.sh will prompt you to confirm the installation of packages. Make sure the packages don't conflict with something you need (usually doesn't happen)
-* Depending on your hardware and internet speed this can take quite a while. As long as the scripts are running everything is fine. If an errors occurs they will stop and state the error
+* ```RoRdepsapt.sh``` will first ask for sudo password and will prompt you a bit later to confirm the installation of the packages. Make sure the packages don't conflict with something you need (usually doesn't happen)
+* ```RoRdeps.sh``` and ```RoRcore.sh``` don't require user interaction.  
+* ```RoRcontent.sh``` only requires you to choose the content you want to download in the beginning.
+* To change default directories and make parameters edit the ```config``` file (optional).
+* Depending on your hardware and internet speed this can take quite a while. As long as the scripts are running everything is fine. If an errors occurs they will stop and state the error.
 
 
 ### Update to current snapshot
+simply re-run
 ```
 sh RoRcore.sh
 ```
@@ -24,7 +27,7 @@ sh RoRcore.sh
 ##### General notes: 
 * Included is a script for profiling. If you don't know what that means then it is not for you!
 * If for whatever reason you copy parts of the script into the console make sure to set configuration
-variables appropriately, either manually, or by sourcing the "config" file like this:
+variables appropriately, either manually, or by sourcing the ```config``` file like this:
 
 ```
 . ./config

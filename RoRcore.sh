@@ -3,11 +3,11 @@ set -eu
 . ./config
 
 cd "$ROR_SOURCE_DIR"
-if [ ! -e rigsofrods-code-2796-tags-0.38 ]; then
-  wget -c -O rigs-of-rods.zip http://sourceforge.net/code-snapshots/svn/r/ri/rigsofrods/code/rigsofrods-code-2796-tags-0.38.zip
-  unzip -o rigs-of-rods.zip
+if [ ! -e rigsofrods-source-0.38 ]; then
+  wget -c http://heanet.dl.sourceforge.net/project/rigsofrods/rigsofrods/0.38-dev/rigsofrods-source-0.38.tar.bz2
+  tar -xvf rigsofrods-source-0.38.tar.bz2
 fi
-cd rigsofrods-code-2796-tags-0.38
+cd rigsofrods-source-0.38
 
 cmake \
 -DCMAKE_INSTALL_PREFIX="$ROR_INSTALL_DIR" \
@@ -28,6 +28,11 @@ cmake \
 # Optimization flags. Pick some if you want to play around with optimization
 # -DCMAKE_CXX_FLAGS="-Ofast -march=native -pipe -flto -mfpmath=both -funroll-loops -ffast-math -floop-parallelize-all -ftree-parallelize-loops=4" \
 
+# dirty way to fix linking to boost since other more convenient ways fail for some reason
+for link in `find . -name 'link.txt'` 
+	do
+		eval "sed '1 s/$/ -lboost_system -lboost_thread -ldl/' -i $link"
+	done
 
 make $ROR_MAKEOPTS
 sed -i '/^PluginFolder=/d' bin/plugins.cfg

@@ -1,4 +1,6 @@
-# Rigs of Rods build scripts
+# Rigs of Rods build scripts for Version 0.38.67
+##### Note: You are on a legay branch. 0.38.67 is an outdated Version of Rigs of Rods and there won't be any support for neither this script nor for the software itself
+
 These shell scripts build the vehicle simulator Rigs of Rods and its dependencies on systems using apt as package manager (e.g. Debian, Ubuntu, Mint).
 
 ### Build and install:

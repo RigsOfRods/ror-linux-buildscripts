@@ -3,11 +3,11 @@ set -eu
 . ./config
 
 cd "$ROR_SOURCE_DIR"
-if [ ! -e rigs-of-rods ]; then
-  git clone https://github.com/RigsOfRods/rigs-of-rods.git
+if [ ! -e rigsofrods-code-2796-tags-0.38 ]; then
+  wget -c -O rigs-of-rods.zip http://sourceforge.net/code-snapshots/svn/r/ri/rigsofrods/code/rigsofrods-code-2796-tags-0.38.zip
+  unzip -o rigs-of-rods.zip
 fi
-cd rigs-of-rods
-git pull
+cd rigsofrods-code-2796-tags-0.38
 
 cmake \
 -DCMAKE_INSTALL_PREFIX="$ROR_INSTALL_DIR" \
@@ -17,7 +17,7 @@ cmake \
 -DROR_USE_PAGED="TRUE" \
 -DROR_USE_CAELUM="TRUE" \
 -DROR_USE_ANGELSCRIPT="TRUE" \
--DCMAKE_BUILD_TYPE=RELEASE \
+-DCMAKE_BUILD_TYPE=Release \
 -DCMAKE_CXX_FLAGS="-pipe -march=native" \
 .
 

@@ -12,13 +12,21 @@ fi
 
 #OGRE
 cd "$ROR_SOURCE_DIR"
-wget -c -O ogre.zip http://bitbucket.org/sinbad/ogre/get/v1-8.zip
+wget -c -O ogre.zip https://bitbucket.org/sinbad/ogre/get/v1-7-4.zip
 unzip -o ogre.zip
 cd sinbad-ogre-*
 cmake -DCMAKE_INSTALL_PREFIX="$ROR_INSTALL_DIR" \
 -DFREETYPE_INCLUDE_DIR=/usr/include/freetype2/ \
 -DCMAKE_BUILD_TYPE:STRING=Release \
 -DOGRE_BUILD_SAMPLES:BOOL=OFF .
+
+# dirty way to fix linking to boost since other more convenient ways fail for some reason
+for link in `find . -name 'link.txt'` 
+	do
+		eval "sed '1 s/$/ -lboost_system -lboost_thread/' -i $link"
+	done
+
+
 make $ROR_MAKEOPTS
 make install
 
@@ -31,9 +39,9 @@ cmake -DCMAKE_INSTALL_PREFIX="$ROR_INSTALL_DIR" .
 make $ROR_MAKEOPTS
 make install
 
-#MyGUI (needs specific revision)
+#MyGUI
 cd "$ROR_SOURCE_DIR"
-wget -c -O mygui.zip https://github.com/MyGUI/mygui/archive/a790944c344c686805d074d7fc1d7fc13df98c37.zip
+wget -c -O mygui.zip https://github.com/MyGUI/mygui/archive/MyGUI3.2.zip
 unzip -o mygui.zip
 cd mygui-*
 cmake -DCMAKE_INSTALL_PREFIX="$ROR_INSTALL_DIR" \
@@ -89,19 +97,23 @@ if [ ! -e angelscript ]; then
   mkdir angelscript
 fi
 cd angelscript
-wget -c http://www.angelcode.com/angelscript/sdk/files/angelscript_2.22.1.zip
+wget -c http://www.angelcode.com/angelscript/sdk/files/angelscript_2.20.3.zip
 unzip -o angelscript_*.zip
 cd sdk/angelscript/projects/gnuc
 sed -i '/^LOCAL *=/d' makefile
 # make fails when making the symbolic link, this removes the existing versions
 rm -f ../../lib/*
-SHARED=1 VERSION=2.22.1 make $ROR_MAKEOPTS
+SHARED=1 VERSION=2.20.3 make $ROR_MAKEOPTS
 rm -f ../../lib/*
-SHARED=1 VERSION=2.22.1 LOCAL="$ROR_INSTALL_DIR" make -s install
+SHARED=1 VERSION=2.20.3 LOCAL="$ROR_INSTALL_DIR" make -s install
 
-#Hydrax (included in RoR's source tree)
-#git clone --depth=1 https://github.com/imperative/CommunityHydrax.git
-#cd CommunityHydrax
-#make -s -j$cpucount PREFIX=/usr/local
-#sudo make install PREFIX=/usr/local
-#cd ..
+#Hydrax
+export CPLUS_INCLUDE_PATH="-I$ROR_INSTALL_DIR/include/OGRE/"
+
+if [ ! -e CommunityHydrax ]; then
+  git clone --depth=1 https://github.com/imperative/CommunityHydrax.git
+fi
+cd CommunityHydrax
+make $ROR_MAKEOPTS PREFIX=$ROR_INSTALL_DIR
+make install PREFIX=$ROR_INSTALL_DIR
+cd ..

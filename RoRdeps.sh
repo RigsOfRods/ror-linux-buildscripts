@@ -53,6 +53,7 @@ if [ ! -e ogre-paged ]; then
   git clone --depth=1 https://github.com/Hiradur/ogre-paged.git
 fi
 cd ogre-paged
+git checkout Ogre-1.8
 git pull
 cmake -DCMAKE_INSTALL_PREFIX="$ROR_INSTALL_DIR" \
 -DCMAKE_BUILD_TYPE:STRING=Release \

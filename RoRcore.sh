@@ -3,9 +3,8 @@ set -eu
 . ./config
 
 cd "$ROR_SOURCE_DIR"
-if [ ! -e rigs-of-rods ]; then
-  git clone https://github.com/RigsOfRods/rigs-of-rods.git
-fi
+wget -O rigs-of-rods.zip https://github.com/RigsOfRods/rigs-of-rods/archive/0.4.5.1.zip
+unzip rigs-of-rods.zip
 cd rigs-of-rods
 git pull
 

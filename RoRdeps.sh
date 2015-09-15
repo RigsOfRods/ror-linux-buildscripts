@@ -2,27 +2,26 @@
 set -eu
 . ./config
 
-# Note: The script only downloads the latest revision of git repos without history to reduce download size.
-# If you need the commit history (e.g. you are a developer) remove --depth=1 after git clone
-
-#Initialization
+# Initialization
 if [ ! -e "$ROR_SOURCE_DIR" ]; then
   mkdir -p "$ROR_SOURCE_DIR"
 fi
 
-#OGRE
+# OGRE
 cd "$ROR_SOURCE_DIR"
-wget -c -O ogre.zip http://bitbucket.org/sinbad/ogre/get/v1-8.zip
-unzip -o ogre.zip
-cd sinbad-ogre-*
+if [ ! -e ogre ]; then
+  hg clone https://bitbucket.org/sinbad/ogre -b v1-9
+fi
+cd ogre
+hg pull -r v1-9 && hg update
 cmake -DCMAKE_INSTALL_PREFIX="$ROR_INSTALL_DIR" \
 -DFREETYPE_INCLUDE_DIR=/usr/include/freetype2/ \
--DCMAKE_BUILD_TYPE:STRING=Release \
+-DCMAKE_BUILD_TYPE:STRING=RelWithDebInfo \
 -DOGRE_BUILD_SAMPLES:BOOL=OFF .
 make $ROR_MAKEOPTS
 make install
 
-#OpenAL
+# OpenAL
 cd "$ROR_SOURCE_DIR"
 wget -c http://kcat.strangesoft.net/openal-releases/openal-soft-1.16.0.tar.bz2
 tar -xvjf openal-soft-1.16.0.tar.bz2
@@ -31,14 +30,16 @@ cmake -DCMAKE_INSTALL_PREFIX="$ROR_INSTALL_DIR" .
 make $ROR_MAKEOPTS
 make install
 
-#MyGUI (needs specific revision)
+# MyGUI
 cd "$ROR_SOURCE_DIR"
-wget -c -O mygui.zip https://github.com/MyGUI/mygui/archive/a790944c344c686805d074d7fc1d7fc13df98c37.zip
-unzip -o mygui.zip
-cd mygui-*
+if [ ! -e mygui ]; then
+  git clone https://github.com/MyGUI/mygui
+fi
+cd mygui
+git pull
 cmake -DCMAKE_INSTALL_PREFIX="$ROR_INSTALL_DIR" \
 -DFREETYPE_INCLUDE_DIR=/usr/include/freetype2/ \
--DCMAKE_BUILD_TYPE:STRING=Release \
+-DCMAKE_BUILD_TYPE:STRING=RelWithDebInfo \
 -DMYGUI_BUILD_DEMOS:BOOL=OFF \
 -DMYGUI_BUILD_DOCS:BOOL=OFF \
 -DMYGUI_BUILD_TEST_APP:BOOL=OFF \
@@ -47,35 +48,36 @@ cmake -DCMAKE_INSTALL_PREFIX="$ROR_INSTALL_DIR" \
 make $ROR_MAKEOPTS
 make install
 
-#Paged Geometry
+# Paged Geometry
 cd "$ROR_SOURCE_DIR"
 if [ ! -e ogre-paged ]; then
-  git clone --depth=1 https://github.com/Hiradur/ogre-paged.git
+  git clone https://github.com/Hiradur/ogre-paged.git
 fi
 cd ogre-paged
 git pull
 cmake -DCMAKE_INSTALL_PREFIX="$ROR_INSTALL_DIR" \
--DCMAKE_BUILD_TYPE:STRING=Release \
--DPAGEDGEOMETRY_BUILD_SAMPLES:BOOL=OFF .
+-DPAGEDGEOMETRY_BUILD_SAMPLES:BOOL=OFF \
+-DCMAKE_BUILD_TYPE:STRING=RelWithDebInfo .
 make $ROR_MAKEOPTS
 make install
 
-#Caelum (needs specific revision for OGRE-1.8)
+# Caelum
 cd "$ROR_SOURCE_DIR"
-wget -c -O caelum.zip http://caelum.googlecode.com/archive/3b0f1afccf5cb75c65d812d0361cce61b0e82e52.zip
-unzip -o caelum.zip
-cd caelum-*
-cmake -DCMAKE_INSTALL_PREFIX="$ROR_INSTALL_DIR" \
--DCaelum_BUILD_SAMPLES:BOOL=OFF .
+if [ ! -e caelum ]; then
+  git clone https://github.com/RigsOfRods/caelum
+fi
+cd caelum
+git pull
+cmake -DCMAKE_INSTALL_PREFIX="$ROR_INSTALL_DIR" .
 make $ROR_MAKEOPTS
 make install
 # important step, so the plugin can load:
 ln -sf "$ROR_INSTALL_DIR/lib/libCaelum.so" "$ROR_INSTALL_DIR/lib/OGRE/"
 
-#MySocketW
+# MySocketW
 cd "$ROR_SOURCE_DIR"
 if [ ! -e mysocketw ]; then
-  git clone --depth=1 https://github.com/Hiradur/mysocketw.git
+  git clone https://github.com/Hiradur/mysocketw.git
 fi
 cd mysocketw
 git pull
@@ -83,7 +85,7 @@ sed -i '/^PREFIX *=/d' Makefile.conf
 make $ROR_MAKEOPTS shared
 PREFIX="$ROR_INSTALL_DIR" make install
 
-#Angelscript
+# Angelscript
 cd "$ROR_SOURCE_DIR"
 if [ ! -e angelscript ]; then
   mkdir angelscript

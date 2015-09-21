@@ -1,9 +1,14 @@
-# Compiles the server for Rigs of Rods
-# To run a public server additional setup is required, see www.rigsofrods.com/wiki/pages/Compiling_Server
-
+#!bin/sh
 set -eu
 . ./config
 
+# Compiles the server for Rigs of Rods
+# To run a public server additional setup is required, see www.rigsofrods.com/wiki/pages/Compiling_Server
+
+# Initialization
+if [ ! -e "$ROR_SOURCE_DIR" ]; then
+  mkdir -p "$ROR_SOURCE_DIR"
+fi
 
 cd "$ROR_SOURCE_DIR"
 if [ ! -e ror-server ]; then

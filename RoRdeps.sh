@@ -16,9 +16,10 @@ cd ogre
 hg pull -r v1-9 && hg update
 cmake -DCMAKE_INSTALL_PREFIX="$ROR_INSTALL_DIR" \
 -DFREETYPE_INCLUDE_DIR=/usr/include/freetype2/ \
--DCMAKE_BUILD_TYPE:STRING=RelWithDebInfo \
 -DOGRE_BUILD_RENDERSYSTEM_GL3PLUS=ON \
--DOGRE_BUILD_SAMPLES:BOOL=OFF .
+-DOGRE_BUILD_SAMPLES:BOOL=OFF \
+-DCMAKE_BUILD_TYPE:STRING=RelWithDebInfo \
+-DCMAKE_CXX_FLAGS="-march=native" .
 make $ROR_MAKEOPTS
 make install
 
@@ -27,7 +28,8 @@ cd "$ROR_SOURCE_DIR"
 wget -c http://kcat.strangesoft.net/openal-releases/openal-soft-1.16.0.tar.bz2
 tar -xvjf openal-soft-1.16.0.tar.bz2
 cd openal-soft-1.16.0
-cmake -DCMAKE_INSTALL_PREFIX="$ROR_INSTALL_DIR" .
+cmake -DCMAKE_INSTALL_PREFIX="$ROR_INSTALL_DIR" \
+-DCMAKE_CXX_FLAGS="-march=native" .
 make $ROR_MAKEOPTS
 make install
 
@@ -40,12 +42,13 @@ cd mygui
 git pull
 cmake -DCMAKE_INSTALL_PREFIX="$ROR_INSTALL_DIR" \
 -DFREETYPE_INCLUDE_DIR=/usr/include/freetype2/ \
--DCMAKE_BUILD_TYPE:STRING=RelWithDebInfo \
 -DMYGUI_BUILD_DEMOS:BOOL=OFF \
 -DMYGUI_BUILD_DOCS:BOOL=OFF \
 -DMYGUI_BUILD_TEST_APP:BOOL=OFF \
 -DMYGUI_BUILD_TOOLS:BOOL=OFF \
--DMYGUI_BUILD_PLUGINS:BOOL=OFF .
+-DMYGUI_BUILD_PLUGINS:BOOL=OFF \
+-DCMAKE_BUILD_TYPE:STRING=RelWithDebInfo \
+-DCMAKE_CXX_FLAGS="-march=native" .
 make $ROR_MAKEOPTS
 make install
 
@@ -58,7 +61,8 @@ cd ogre-paged
 git pull
 cmake -DCMAKE_INSTALL_PREFIX="$ROR_INSTALL_DIR" \
 -DPAGEDGEOMETRY_BUILD_SAMPLES:BOOL=OFF \
--DCMAKE_BUILD_TYPE:STRING=RelWithDebInfo .
+-DCMAKE_BUILD_TYPE:STRING=RelWithDebInfo \
+-DCMAKE_CXX_FLAGS="-march=native" .
 make $ROR_MAKEOPTS
 make install
 
@@ -69,7 +73,9 @@ if [ ! -e caelum ]; then
 fi
 cd caelum
 git pull
-cmake -DCMAKE_INSTALL_PREFIX="$ROR_INSTALL_DIR" .
+cmake -DCMAKE_INSTALL_PREFIX="$ROR_INSTALL_DIR" \
+-DCMAKE_BUILD_TYPE:STRING=RelWithDebInfo \
+-DCMAKE_CXX_FLAGS="-march=native" .
 make $ROR_MAKEOPTS
 make install
 # important step, so the plugin can load:
@@ -108,3 +114,6 @@ SHARED=1 VERSION=2.22.1 LOCAL="$ROR_INSTALL_DIR" make -s install
 #make -s -j$cpucount PREFIX=/usr/local
 #sudo make install PREFIX=/usr/local
 #cd ..
+
+echo "$(tput setaf 1) All dependencies were installed successfully"
+echo "You can now proceed with RoRcore.sh$(tput sgr 0)"

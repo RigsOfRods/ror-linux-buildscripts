@@ -1,6 +1,5 @@
 cd ~/
-mkdir ~/.rigsofrods
-mkdir ~/.rigsofrods/packs
+mkdir -p ~/.rigsofrods/packs
 
 while true; do
     read -p "Which Pack do you want to download? 

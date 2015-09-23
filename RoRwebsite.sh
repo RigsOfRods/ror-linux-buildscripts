@@ -26,4 +26,6 @@ cd rigsofrods.github.io
 sudo bundle install
 
 make build
+
+echo "$(tput setaf 1) Success! You can now start working on the website in $ROR_SOURCE_DIR/rigsofrods.github.io(tput sgr 0)"
  

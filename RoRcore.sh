@@ -26,7 +26,7 @@ cmake \
 # -pipe          -- Speeds up the compilation process. Requires >=4GB RAM.
 
 # Optimization flags. Pick some if you want to play around with optimization
-# -DCMAKE_CXX_FLAGS="-Ofast -march=native -pipe -flto -mfpmath=both -funroll-loops -ffast-math -floop-parallelize-all -ftree-parallelize-loops=4" \
+# -DCMAKE_CXX_FLAGS="-Ofast -march=native -pipe -flto -mfpmath=both -funroll-loops -floop-parallelize-all -ftree-parallelize-loops=4" \
 
 
 make $ROR_MAKEOPTS
@@ -36,5 +36,6 @@ echo "PluginFolder=$ROR_INSTALL_DIR/lib/OGRE" >>bin/plugins.cfg
 # there's no make install target, so just copy the bin folder
 cp -R bin "$ROR_INSTALL_DIR"
 
-echo "$(tput setaf 1)NOTE: Do not forget to run RoRConfig once before RoR."
-echo "NOTE: Binaries are in $ROR_INSTALL_DIR/bin$(tput sgr 0)"
+echo "$(tput setaf 1) Build succeeded!"
+echo "NOTE: Do not forget to run RoRConfig once before RoR."
+echo "NOTE: Binaries to start the game are in $ROR_INSTALL_DIR/bin$(tput sgr 0)"

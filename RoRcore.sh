@@ -15,10 +15,7 @@ cmake \
 -DROR_USE_OPENAL="TRUE" \
 -DROR_USE_SOCKETW="TRUE" \
 -DROR_USE_PAGED="TRUE" \
--DROR_USE_CAELUM="TRUE" \
--DROR_USE_ANGELSCRIPT="TRUE" \
 -DCMAKE_BUILD_TYPE=RelWithDebInfo \
--DCMAKE_CXX_FLAGS="-pipe -march=native" \
 .
 
 # CMAKE_CXX_FLAGS (flags for compiler) - Default are:

@@ -1,5 +1,6 @@
-# Rigs of Rods build scripts
-These shell scripts build the vehicle simulator Rigs of Rods and its dependencies on systems using apt as package manager (e.g. Debian, Ubuntu, Mint).
+# Rigs of Rods build scripts for Raspberry Pi
+These shell scripts build the vehicle simulator Rigs of Rods and its dependencies on Raspbian on a Raspberry Pi.
+This is an experimental branch, there will be no support for any issues.
 
 ### Build and install:
 Run these commands from console in this order and not simultaneously:

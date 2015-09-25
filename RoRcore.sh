@@ -3,7 +3,7 @@ set -eu
 . ./config
 
 #selects CMAKE_BUILD_TYPE, compiled objects will be located in $ROR_SOURCE_DIR/0_build/CMAKEBUILDTYPE
-CMAKEBUILDTYPE=Debug
+CMAKEBUILDTYPE=RelWithDebInfo
 
 
 cd "$ROR_SOURCE_DIR"

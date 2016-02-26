@@ -1,0 +1,16 @@
+diff --git a/bin/resources/particles/water.particle b/bin/resources/particles/water.particle
+index a4b809b..538f8a6 100644
+--- a/bin/resources/particles/water.particle
++++ b/bin/resources/particles/water.particle
+@@ -46,11 +46,6 @@ particle_system tracks/particles/water1
+ 			rotation_speed_range_end    	1
+ 	}
+ 
+-	affector FireExtinguisher
+-	{
+-		effectiveness 	1
+-	}
+-
+ }
+ 
+ particle_system tracks/particles/waterRed

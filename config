@@ -12,6 +12,3 @@ ROR_MAKEOPTS="-s"
 # Don't change these
 PKG_CONFIG_PATH="$ROR_INSTALL_DIR/lib/pkgconfig"
 export PKG_CONFIG_PATH
-
-# Raspbian specific
-export CXX="g++-4.8" CC="gcc-4.8"

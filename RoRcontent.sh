@@ -1,3 +1,6 @@
+#!/bin/sh
+set -e
+
 cd ~/
 mkdir -p ~/.rigsofrods/packs
 

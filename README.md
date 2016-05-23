@@ -34,6 +34,27 @@ variables appropriately, either manually, or by *sourcing* the `config` file lik
 . ./config
 ```
 
+### Uninstallation
+
+Uninstalling RoR which was installed by these scripts consists of these steps:  
+
+``` sh
+# remove sources and binaries
+# note: adjust path if you changed it in the config file
+rm -r ~/rigs-of-rods
+
+# remove mods and settings
+rm -r ~/.rigsofrods
+
+# uninstall packages of dependencies
+# replace X Y Z with the packages installed by RoRdepsapt.sh
+# note: make sure you only remove packages you don't need for something else
+sudo apt-get purge X Y Z
+
+# remove now unneeded dependencies of the dependencies of RoR
+sudo apt-get autoremove
+```
+
 ###### Links:
 Official Rigs of Rods website: http://rigsofrods.org  
 Git repository of these scripts: https://github.com/RigsOfRods/ror-linux-buildscripts  

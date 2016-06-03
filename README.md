@@ -4,11 +4,13 @@ With some minor adjustments they should work on Linux distributions not based on
 
 ### Build and install Rigs of Rods:
 Run these commands from console in this order and not simultaneously:
-```
+```sh
 sh RoRdepsapt.sh
 sh RoRdeps.sh
 sh RoRcore.sh
 sh RoRcontent.sh
+# if you want to you can also install the community-map, but it's still WIP
+sh RoRcomm_map.sh
 ```
   
 ##### Notes:
@@ -21,7 +23,7 @@ sh RoRcontent.sh
 
 ### Update to current snapshot
 simply re-run
-```
+```sh
 sh RoRcore.sh
 ```
 
@@ -38,7 +40,7 @@ variables appropriately, either manually, or by *sourcing* the `config` file lik
 
 Uninstalling RoR which was installed by these scripts consists of these steps:  
 
-``` sh
+```sh
 # remove sources and binaries
 # note: adjust path if you changed it in the config file
 rm -r ~/rigs-of-rods

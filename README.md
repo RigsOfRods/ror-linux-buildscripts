@@ -5,12 +5,12 @@ With some minor adjustments they should work on Linux distributions not based on
 ### Build and install Rigs of Rods:
 Run these commands from console in this order and not simultaneously:
 ```sh
-sh RoRdepsapt.sh
-sh RoRdeps.sh
-sh RoRcore.sh
-sh RoRcontent.sh
+sh dependencies-apt.sh
+sh dependencies.sh
+sh core.sh
+sh content.sh
 # if you want to you can also install the community-map, but it's still WIP
-sh RoRcomm_map.sh
+sh community_map.sh
 ```
   
 ##### Notes:

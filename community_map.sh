@@ -6,7 +6,7 @@ set -eu
 . ./config
 
 # Change this to your GitHub username _if_ you want to help developing the map.
-# Make sure you forked the RigsOfRods-Community/community-map repo first.
+# Make sure you forked the RigsOfRods-Community/community-map repo before.
 YOUR_GITHUB_USERNAME="RigsOfRods-Community"
 
 # Clone repository

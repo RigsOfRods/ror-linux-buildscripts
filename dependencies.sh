@@ -68,10 +68,10 @@ make install
 
 # Caelum
 cd "$ROR_SOURCE_DIR"
-if [ ! -e caelum ]; then
-  git clone https://github.com/RigsOfRods/caelum
+if [ ! -e ogre-caelum ]; then
+  git clone https://github.com/RigsOfRods/ogre-caelum.git
 fi
-cd caelum
+cd ogre-caelum
 git pull
 cmake -DCMAKE_INSTALL_PREFIX="$ROR_INSTALL_DIR" \
 -DCMAKE_BUILD_TYPE:STRING=RelWithDebInfo \

@@ -40,8 +40,7 @@ echo "PluginFolder=$ROR_INSTALL_DIR/lib/OGRE" >>bin/plugins.cfg
 # there's no make install target, so just copy the bin folder
 cp -R bin "$ROR_INSTALL_DIR"
 
-echo "$(tput setaf 1)Build succeeded!"
+echo "$(tput setaf 2)Build succeeded!"
 echo "NOTE: Do not forget to run RoRConfig once before RoR."
 echo "NOTE: Binaries to start the game are in $ROR_INSTALL_DIR/bin"
 echo "NOTE: Mods belong in ~/.rigsofrods/packs$(tput sgr 0)"
-

@@ -27,3 +27,5 @@ cmake -DCMAKE_INSTALL_PREFIX="$ROR_INSTALL_DIR" \
 
 make $ROR_MAKEOPTS
 make install
+
+echo "$(tput setaf 2)Server successfully installed ROR_INSTALL_DIR/bin$(tput sgr 0)"

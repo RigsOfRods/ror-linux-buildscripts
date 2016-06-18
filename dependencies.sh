@@ -115,5 +115,5 @@ SHARED=1 VERSION=2.22.1 LOCAL="$ROR_INSTALL_DIR" make -s install
 #sudo make install PREFIX=/usr/local
 #cd ..
 
-echo "$(tput setaf 1)All dependencies were installed successfully"
-echo "You can now proceed with RoRcore.sh$(tput sgr 0)"
+echo "$(tput setaf 2)All dependencies were installed successfully"
+echo "You can now proceed with core.sh$(tput sgr 0)"

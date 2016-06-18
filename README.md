@@ -15,7 +15,7 @@ sh community_map.sh
   
 ##### Notes:
 * `dependencies_apt.sh` will first ask for sudo password and will prompt you a bit later to confirm the installation of the packages. Make sure the packages don't conflict with something you need (usually doesn't happen).
-* `deps.sh` and `core.sh` don't require user interaction.  
+* `dependencies.sh` and `core.sh` don't require user interaction.  
 * `content.sh` only requires you to choose the content you want to download in the beginning.
 * To change default directories and *make* parameters edit the `config` file (optional).
 * Depending on your hardware and internet speed this can take quite a while. As long as the scripts are running everything is fine. If an errors occurs they will stop and state the error.

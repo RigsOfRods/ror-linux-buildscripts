@@ -1,4 +1,5 @@
 #!/bin/sh
+set -eu
 
 #Precompiled dependencies
 sudo apt-get update
@@ -9,5 +10,5 @@ libx11-dev libxt-dev libxaw7-dev libxrandr-dev \
 libssl-dev libcurl4-openssl-dev libgtk2.0-dev libwxgtk3.0-dev \
 libasound2-dev libpulse-dev wget
 
-echo "$(tput setaf 1)All apt dependencies installed."
-echo "You can now proceed with RoRdeps.sh$(tput sgr 0)"
+echo "$(tput setaf 2)All apt dependencies installed."
+echo "You can now proceed with dependencies.sh$(tput sgr 0)"

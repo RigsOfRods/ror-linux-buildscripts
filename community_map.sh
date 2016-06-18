@@ -24,3 +24,5 @@ zip -r ../community-map.zip *
 
 # move map to mod folder of RoR
 mv ../community-map.zip ~/.rigsofrods/packs
+
+echo "$(tput setaf 2) Community Map succesfully installed.$(tput sgr 0)"

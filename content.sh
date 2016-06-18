@@ -21,5 +21,5 @@ done
 
 echo "$(tput setaf 2)Pack successfully installed."
 echo "You can find more content at https://repofiles.avrintech.net/"
-echo "Some content may only be found in the forum: rigsofrods.org/forum-16.html"
+echo "Some content may only be found in the forum: http://forum.rigsofrods.org/forum-16.html"
 echo "Place new mods in ~/.rigsofrods/packs$(tput sgr 0)"

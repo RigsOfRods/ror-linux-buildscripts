@@ -5,10 +5,13 @@ set -eu
 #selects CMAKE_BUILD_TYPE, compiled objects will be located in $ROR_SOURCE_DIR/0_build/CMAKEBUILDTYPE
 CMAKEBUILDTYPE=RelWithDebInfo
 
+# change this if you want to hack on the code and have the repository forked to your GitHub account
+YOUR_GITHUB_USERNAME="RigsOfRods"
+
 
 cd "$ROR_SOURCE_DIR"
 if [ ! -e rigs-of-rods ]; then
-  git clone https://github.com/RigsOfRods/rigs-of-rods.git
+  git clone https://github.com/${YOUR_GITHUB_USERNAME}/rigs-of-rods.git
 fi
 cd rigs-of-rods
 git pull

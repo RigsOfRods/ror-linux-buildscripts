@@ -60,4 +60,4 @@ sudo apt-get autoremove
 ###### Links:
 Official Rigs of Rods website: http://rigsofrods.org  
 Git repository of these scripts: https://github.com/RigsOfRods/ror-linux-buildscripts  
-Thread on RoR forums: http://rigsofrods.org/thread-21.html  
+Thread on RoR forums: http://forum.rigsofrods.org/thread-21.html  

@@ -22,7 +22,7 @@ cd $ROR_SOURCE_DIR
 if [ ! -e "rigsofrods.org" ]; then
   git clone https://github.com/${YOUR_GITHUB_USERNAME}/rigsofrods.org
 fi
-cd rigsofrods.github.io
+cd rigsofrods.org
 sudo bundle install
 
 make build

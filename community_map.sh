@@ -12,7 +12,7 @@ YOUR_GITHUB_USERNAME="RigsOfRods-Community"
 # Clone repository
 cd "$ROR_SOURCE_DIR"
 if [ ! -e community-map ]; then
-  git clone --depth 1 https://github.com/{$YOUR_GITHUB_USERNAME}/community-map
+  git clone --depth 1 https://github.com/${YOUR_GITHUB_USERNAME}/community-map
 fi
 cd community-map
 

@@ -2,16 +2,14 @@
 set -eu
 . ./config
 
-#selects CMAKE_BUILD_TYPE, compiled objects will be located in $ROR_SOURCE_DIR/0_build/CMAKEBUILDTYPE
-CMAKEBUILDTYPE=RelWithDebInfo
-
-# change this if you want to hack on the code and have the repository forked to your GitHub account
-YOUR_GITHUB_USERNAME="RigsOfRods"
-
+# Initialization
+if [ ! -e "$ROR_SOURCE_DIR" ]; then
+  mkdir -p "$ROR_SOURCE_DIR"
+fi
 
 cd "$ROR_SOURCE_DIR"
 if [ ! -e rigs-of-rods ]; then
-  git clone https://github.com/${YOUR_GITHUB_USERNAME}/rigs-of-rods.git
+  git clone https://github.com/${YOUR_GITHUB_USERNAME}/rigs-of-rods.git --depth=5
 fi
 cd rigs-of-rods
 git pull
@@ -21,11 +19,17 @@ if [ ! -e "0_build/$CMAKEBUILDTYPE" ]; then
 fi
 cd 0_build/$CMAKEBUILDTYPE
 
+ROR_CMAKE_ARGS=""
+if [ -e "$ROR_SOURCE_DIR/ror-dependencies" ]; then
+    ROR_CMAKE_ARGS=-DCMAKE_PREFIX_PATH=$ROR_SOURCE_DIR/ror-dependencies/Dependencies_Linux/
+fi
+
 cmake ../../ \
--DCMAKE_INSTALL_PREFIX="$ROR_INSTALL_DIR" \
--DROR_BUILD_CONFIGURATOR:BOOL="TRUE" \
 -DCMAKE_BUILD_TYPE=$CMAKEBUILDTYPE \
--DCMAKE_CXX_FLAGS="-pipe -march=native"
+-DBUILD_CUSTOM_VERSION=ON \
+-DCUSTOM_VERSION="0.4.8.0-shscript" \
+-DCMAKE_CXX_FLAGS="-pipe -march=native" \
+$ROR_CMAKE_ARGS
 
 # CMAKE_CXX_FLAGS (flags for compiler) - Default are:
 # -march=native  -- Optimize RoR for the CPU the build is performed on; executable will only be portable to systems with same or newer CPU architecture
@@ -36,14 +40,9 @@ cmake ../../ \
 
 
 make $ROR_MAKEOPTS
-cp -R ../../bin .
-sed -i '/^PluginFolder=/d' bin/plugins.cfg
-echo "PluginFolder=$ROR_INSTALL_DIR/lib/OGRE" >>bin/plugins.cfg
-
-# there's no make install target, so just copy the bin folder
-cp -R bin "$ROR_INSTALL_DIR"
+sudo make install
 
 echo "$(tput setaf 2)Build succeeded!"
 echo "NOTE: Do not forget to run RoRConfig once before RoR."
-echo "NOTE: Binaries to start the game are in $ROR_INSTALL_DIR/bin"
-echo "NOTE: Mods belong in ~/.rigsofrods/packs$(tput sgr 0)"
+echo "NOTE: Mods belong in ~/.rigsofrods/packs"
+echo "NOTE: Run content.sh if you want to install the Content Pack$(tput sgr 0)"

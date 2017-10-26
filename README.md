@@ -1,34 +1,35 @@
 # Rigs of Rods build scripts
 These shell scripts build the vehicle simulator Rigs of Rods and its dependencies on systems using *apt* as package manager (e.g. Debian, Ubuntu, Mint).
-With some minor adjustments they should work on Linux distributions not based on *apt* as well.
+With some minor adjustments, they should work on Linux distributions not based on *apt* as well.
 
 ### Build and install Rigs of Rods:
-Run these commands from console in this order and not simultaneously:
+Run these commands from the console in this order and not simultaneously:
+
+`sh dependencies-Ubuntu-16.04.sh` if your distro is based on Ubuntu 16.04 OR `dependencies.sh` if your distro is based on something else.
 ```sh
-sh dependencies.sh
-sh core.sh
+sh game.sh
 sh content.sh
 # if you want to you can also install the community-map, but it's still WIP
 sh community_map.sh
 ```
 
 ##### Notes:
-* `dependencies.sh` will first ask for sudo password and will prompt you a bit later to confirm the installation of the packages. Make sure the packages don't conflict with something you need (usually doesn't happen).
-* `core.sh` don't require user interaction.  
+* `dependencies.sh` and `dependencies-Ubuntu-16.04.sh` will first ask for sudo password and will prompt you a bit later to confirm the installation of the packages. Make sure the packages don't conflict with something you need (usually doesn't happen).
+* `game.sh` asks for sudo password to install the game.  
 * `content.sh` only requires you to choose the content you want to download in the beginning.
 * To change default directories and *make* parameters edit the `config` file (optional).
-* Depending on your hardware and internet speed this can take quite a while. As long as the scripts are running everything is fine. If an errors occurs they will stop and state the error.
+* Depending on your hardware and internet speed this can take quite a while. As long as the scripts are running everything is fine. If an error occurs they will stop and state the error.
 
 
 ### Update to current snapshot
 simply re-run
 ```sh
-sh core.sh
+sh game.sh
 ```
 
 ##### General notes:
 * Included is a script for profiling. If you don't know what that means then it is not for you!
-* Scripts to build the RoR multiplayer server and set up a development environment for the RoR website named `server.sh` and `website.sh`  respecitvely are included as well (see the scripts for additional information).
+* Scripts to build the RoR multiplayer server and set up a development environment for the RoR website named `server.sh` and `website.sh`  respectively are included as well (see the scripts for additional information).
 * If for whatever reason you copy parts of the script into the console make sure to set configuration
 variables appropriately, either manually, or by *sourcing* the `config` file like this:
 ```

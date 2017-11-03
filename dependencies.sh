@@ -1,4 +1,4 @@
-﻿#!/bin/sh
+#!/bin/sh
 set -eu
 . ./config
 
@@ -21,6 +21,7 @@ if [ ! -e ror-dependencies ]; then
   git clone https://github.com/${YOUR_GITHUB_USERNAME}/ror-dependencies.git
 fi
 cd ror-dependencies
+git pull
 
 cmake .
 make $ROR_MAKEOPTS

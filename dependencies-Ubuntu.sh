@@ -8,7 +8,7 @@ curl -sLf 'https://dl.cloudsmith.io/public/rigs-of-rods/rigs-of-rods/cfg/install
 sudo apt-get -q install build-essential wget git wget cmake pkg-config python3 \
 libogre-1.9-dev libmygui-dev libmygui.ogreplatform0debian1v5 libopenal-dev \
 libcurl4-openssl-dev libgtk2.0-dev libois-dev libssl-dev libwxgtk3.0-dev \
-libssl-dev libcurl4-openssl-dev libgtk2.0-dev libwxgtk3.0-dev \ 
+libssl-dev libcurl4-openssl-dev libgtk2.0-dev libwxgtk3.0-dev \
 angelscript pagedgeometry socketw
 
 

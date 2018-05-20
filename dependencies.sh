@@ -23,7 +23,7 @@ fi
 cd ror-dependencies
 git pull
 
-cmake .
+cmake -DBUILD_CAELUM=OFF .
 make $ROR_MAKEOPTS
 
 echo "$(tput setaf 2)All dependencies were installed and build successfully."

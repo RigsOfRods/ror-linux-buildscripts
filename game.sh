@@ -40,6 +40,7 @@ $ROR_CMAKE_ARGS
 
 
 make $ROR_MAKEOPTS
+make zip_and_copy_resources
 sudo make install
 
 echo "$(tput setaf 2)Build succeeded!"

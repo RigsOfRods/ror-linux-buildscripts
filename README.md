@@ -4,20 +4,13 @@ With some minor adjustments, they should work on Linux distributions not based o
 
 ### Build and install Rigs of Rods:
 Run these commands from the console in this order and not simultaneously:
-
-`sh dependencies-Ubuntu.sh` if your distro is based on Ubuntu xenial, yakkety or artful 
-OR 
-`sh dependencies.sh` if your distro is based on something else.
-
 ```sh
+sh dependencies.sh
 sh game.sh
-sh content.sh
-# if you want to you can also install the community-map, but it's still WIP
-sh community_map.sh
 ```
 
 ##### Notes:
-* `dependencies.sh` and `dependencies-Ubuntu.sh` will first ask for sudo password and will prompt you a bit later to confirm the installation of the packages. Make sure the packages don't conflict with something you need (usually doesn't happen).
+* `dependencies.sh` will first ask for sudo password and will prompt you a bit later to confirm the installation of the packages. Make sure the packages don't conflict with something you need (usually doesn't happen).
 * `game.sh` asks for sudo password to install the game.  
 * `content.sh` only requires you to choose the content you want to download in the beginning.
 * To change default directories and *make* parameters edit the `config` file (optional).
@@ -63,4 +56,4 @@ sudo apt-get autoremove
 ###### Links:
 Official Rigs of Rods website: http://rigsofrods.org  
 Git repository of these scripts: https://github.com/RigsOfRods/ror-linux-buildscripts  
-Thread on RoR forums: https://forum.rigsofrods.org/development-discussion/101-shell-scripts-build-rigs-rods-git-debian-ubuntu-mint.html 
+Thread on RoR forums: https://forum.rigsofrods.org/development-discussion/101-shell-scripts-build-rigs-rods-git-debian-ubuntu-mint.html

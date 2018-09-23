@@ -21,5 +21,5 @@ conan user
 conan remote add ror-dependencies https://api.bintray.com/conan/anotherfoxguy/ror-dependencies
 conan remote add bincrafters-public-conan https://api.bintray.com/conan/bincrafters/public-conan
 
-echo "$(tput setaf 2)All dependencies were installed and build successfully."
+echo "$(tput setaf 2)All dependencies were installed and built successfully."
 echo "You can now proceed with game.sh$(tput sgr 0)"

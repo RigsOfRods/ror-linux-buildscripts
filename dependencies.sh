@@ -13,8 +13,9 @@ libasound2-dev libpulse-dev wget python3-pip
 
 # Conan
 cd /tmp/
-sudo wget -nv https://dl.bintray.com/conan/installers/conan-ubuntu-64_1_9_0.deb
-sudo dpkg -i conan-ubuntu-64_1_7_3.deb
+sudo wget -nv https://dl.bintray.com/conan/installers/conan-ubuntu-64_1_13_1.deb
+
+sudo dpkg -i conan-ubuntu-64_1_13_1.deb
 
 conan user
 

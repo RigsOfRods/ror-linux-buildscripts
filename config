@@ -2,15 +2,10 @@
 ROR_SOURCE_DIR=~/rigs-of-rods-source
 
 # selects CMAKE_BUILD_TYPE, compiled objects will be located in $ROR_SOURCE_DIR/0_build/CMAKEBUILDTYPE
-CMAKEBUILDTYPE=RelWithDebInfo
+CMAKEBUILDTYPE=Release
 
 # change this if you want to hack on the code and have the repository forked to your GitHub account
 YOUR_GITHUB_USERNAME="RigsOfRods"
-
-# Make options. Defaults are:
-# -s       -- Silent operation; do not print the commands as they are executed.
-# -jX      -- Number of jobs to run simultaneously. X is the number of processors in /proc/cpuinfo by default(-j$(nproc)).
-ROR_MAKEOPTS="-s -j4"
 
 # Don't change these unless you know what you are doing
 # PKG_CONFIG_PATH="$ROR_SOURCE_DIR/lib/pkgconfig"

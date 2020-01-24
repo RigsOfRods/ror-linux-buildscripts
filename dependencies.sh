@@ -2,6 +2,24 @@
 set -eu
 . ./config
 
+setup_apt_kitware()
+{
+  sudo apt-get update
+  sudo apt-get install apt-transport-https ca-certificates gnupg software-properties-common wget -y
+  wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | sudo apt-key add -
+}
+
+if [ "$(grep -oP 'VERSION_ID="\K[\d]+' /etc/os-release)" = "16" ]
+then
+  setup_apt_kitware
+  sudo apt-add-repository 'deb https://apt.kitware.com/ubuntu/ xenial main'
+elif [ "$(grep -oP 'VERSION_ID="\K[\d]+' /etc/os-release)" = "18" ]
+then
+  setup_apt_kitware
+  sudo apt-add-repository 'deb https://apt.kitware.com/ubuntu/ bionic main' -y
+fi
+
+
 # Precompiled dependencies
 sudo apt-get update
 sudo apt-get -q install build-essential git cmake ninja-build python3-pip

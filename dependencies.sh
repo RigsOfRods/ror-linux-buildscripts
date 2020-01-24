@@ -2,6 +2,7 @@
 set -eu
 . ./config
 
+# Install the newest version of cmake on ubuntu 16 and 18
 setup_apt_kitware()
 {
   sudo apt-get update
@@ -20,7 +21,7 @@ then
 fi
 
 
-# Precompiled dependencies
+# Build dependencies
 sudo apt-get update
 sudo apt-get -q install build-essential git cmake ninja-build python3-pip
 

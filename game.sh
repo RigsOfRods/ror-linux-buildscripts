@@ -21,7 +21,8 @@ cd 0_build/$CMAKEBUILDTYPE
 
 cmake ../../ -GNinja \
 -DCMAKE_BUILD_TYPE=$CMAKEBUILDTYPE \
--DCMAKE_CXX_FLAGS="-pipe -march=native"
+-DCMAKE_CXX_FLAGS="-pipe -march=native" \
+-DCMAKE_INSTALL_PREFIX="/usr/local/games/rigsofrods/"
 
 # CMAKE_CXX_FLAGS (flags for compiler) - Default are:
 # -march=native  -- Optimize RoR for the CPU the build is performed on; executable will only be portable to systems with same or newer CPU architecture
